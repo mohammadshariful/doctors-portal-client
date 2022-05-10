@@ -1,6 +1,6 @@
 import React from "react";
 import treatment from "../../assets/images/treatment.png";
-import PrimaryBtn from "./PrimaryBtn";
+import PrimaryBtn from "../Shared/PrimaryBtn/PrimaryBtn";
 const DentalCare = () => {
   return (
     <div className="hero min-h-screen">
@@ -17,7 +17,7 @@ const DentalCare = () => {
             here', making it look like readable English. Many desktop publishing
             packages and web page.
           </p>
-          <PrimaryBtn />
+          <PrimaryBtn>Get Started</PrimaryBtn>
         </div>
         <img
           src={treatment}

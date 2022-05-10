@@ -1,6 +1,6 @@
 import React from "react";
 import chair from "../../assets/images/chair.png";
-import PrimaryBtn from "./PrimaryBtn";
+import PrimaryBtn from "../Shared/PrimaryBtn/PrimaryBtn";
 const Banner = () => {
   return (
     <div className="hero min-h-screen">
@@ -13,7 +13,7 @@ const Banner = () => {
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the.
           </p>
-          <PrimaryBtn />
+          <PrimaryBtn>Get Started</PrimaryBtn>
         </div>
       </div>
     </div>
