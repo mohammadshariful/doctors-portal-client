@@ -1,7 +1,11 @@
 import React from "react";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import auth from "../../Firebase/Firebase.init";
+import Loading from "../Shared/Loading/Loading";
 const Login = () => {
   const {
     register,
@@ -9,7 +13,16 @@ const Login = () => {
     handleSubmit,
   } = useForm();
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-  const onSubmit = (data) => console.log(data);
+  const [signInWithEmailAndPassword, user2, loading2, error2] =
+    useSignInWithEmailAndPassword(auth);
+
+  if (loading || loading2) {
+    return <Loading />;
+  }
+
+  const onSubmit = (data) => {
+    signInWithEmailAndPassword(data.email, data.password);
+  };
   return (
     <div className="flex h-screen justify-center items-center">
       <div className="card w-96 bg-base-100 shadow-xl">
@@ -81,7 +94,11 @@ const Login = () => {
                 )}
               </label>
             </div>
-
+            {(error || error2) && (
+              <p className="mb-2 text-red-500 font-semibold text-center">
+                {error?.message} {error2?.message}
+              </p>
+            )}
             <input
               className="btn w-full max-w-xs text-white"
               type="submit"
