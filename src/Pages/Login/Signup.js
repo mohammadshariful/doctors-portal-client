@@ -1,36 +1,66 @@
 import React from "react";
 import {
-  useSignInWithEmailAndPassword,
+  useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
+  useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../Firebase/Firebase.init";
 import Loading from "../Shared/Loading/Loading";
-const Login = () => {
+
+const Signup = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-  const [signInWithEmailAndPassword, user2, loading2, error2] =
-    useSignInWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user2, loading2, error2] =
+    useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
-  if (loading || loading2) {
+  const navigate = useNavigate();
+
+  if (loading || loading2 || updating) {
     return <Loading />;
   }
 
-  const onSubmit = (data) => {
-    signInWithEmailAndPassword(data.email, data.password);
+  const onSubmit = async (data) => {
+    await createUserWithEmailAndPassword(data.email, data.password);
+    navigate("/appointment");
+    await updateProfile({ displayName: data.name });
   };
   return (
     <div className="flex h-screen justify-center items-center">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="text-center text-2xl font-bold">Login</h2>
+          <h2 className="text-center text-2xl font-bold">Sign up</h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Your Name"
+                className="input input-bordered w-full max-w-xs"
+                {...register("name", {
+                  required: {
+                    value: true,
+                    message: "Name is Required",
+                  },
+                })}
+              />
+              <label className="label">
+                {errors.name?.type === "required" && (
+                  <span className="label-text-alt text-red-500">
+                    {errors.name.message}
+                  </span>
+                )}
+              </label>
+            </div>
             <div className="form-control w-full max-w-xs">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -95,21 +125,21 @@ const Login = () => {
                 )}
               </label>
             </div>
-            {(error || error2) && (
+            {(error || error2 || updateError) && (
               <p className="mb-2 text-red-500 font-semibold text-center">
-                {error?.message} {error2?.message}
+                {error?.message} {error2?.message} {updateError?.message}
               </p>
             )}
             <input
               className="btn w-full max-w-xs text-white"
               type="submit"
-              value="Login"
+              value="Sign up"
             />
           </form>
           <p>
-            New to Doctors prtal?
-            <Link className="text-secondary" to="/signup">
-              Create a New Account
+            Already have an account?
+            <Link className="text-secondary" to="/login">
+              Please Login
             </Link>
           </p>
 
@@ -126,4 +156,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
