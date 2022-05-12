@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
@@ -7,7 +7,9 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../Firebase/Firebase.init";
 import Loading from "../Shared/Loading/Loading";
+import ForgetPassword from "./ForgetPassword";
 const Login = () => {
+  const [reset, setReset] = useState(false);
   const {
     register,
     formState: { errors },
@@ -33,6 +35,7 @@ const Login = () => {
   const onSubmit = (data) => {
     signInWithEmailAndPassword(data.email, data.password);
   };
+  // const handlePasswordReset = () => {};
   return (
     <div className="flex h-screen justify-center items-center">
       <div className="card w-96 bg-base-100 shadow-xl">
@@ -115,6 +118,13 @@ const Login = () => {
               value="Login"
             />
           </form>
+          <label
+            onClick={() => setReset(true)}
+            htmlFor="forgetPasswordModal"
+            className="modal-button text-right text-secondary cursor-pointer"
+          >
+            Forget your password?
+          </label>
           <p>
             New to Doctors prtal?
             <Link className="text-secondary" to="/signup">
@@ -131,6 +141,7 @@ const Login = () => {
           </button>
         </div>
       </div>
+      {reset && <ForgetPassword setReset={setReset} />}
     </div>
   );
 };

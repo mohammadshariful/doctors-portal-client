@@ -20,19 +20,19 @@ const HomeContact = () => {
           <input
             type="email"
             placeholder="Email"
-            class="input input-bordered input-md "
+            className="input input-bordered input-md "
           />
           <br />
           <br />
           <input
             type="text"
             placeholder="Subject"
-            class="input input-bordered input-md"
+            className="input input-bordered input-md"
           />
           <br />
           <br />
           <textarea
-            class="textarea textarea-white"
+            className="textarea textarea-white"
             placeholder="Your Message"
           ></textarea>
           <br />

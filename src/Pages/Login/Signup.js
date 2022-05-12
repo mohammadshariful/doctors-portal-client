@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
@@ -17,10 +17,16 @@ const Signup = () => {
   } = useForm();
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
   const [createUserWithEmailAndPassword, user2, loading2, error2] =
-    useCreateUserWithEmailAndPassword(auth);
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user || user2) {
+      navigate("/");
+    }
+  }, [user || user2]);
 
   if (loading || loading2 || updating) {
     return <Loading />;
