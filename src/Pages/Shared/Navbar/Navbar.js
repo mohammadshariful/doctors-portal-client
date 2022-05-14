@@ -25,7 +25,13 @@ const Navbar = () => {
       <li>{user && <Link to="/dashboard">Dashboard</Link>}</li>
       <li>
         {user ? (
-          <Link to="/login" onClick={() => signOut(auth)}>
+          <Link
+            to="/login"
+            onClick={() => {
+              signOut(auth);
+              localStorage.removeItem("accessToken");
+            }}
+          >
             Log Out
           </Link>
         ) : (

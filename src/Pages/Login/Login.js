@@ -6,6 +6,7 @@ import {
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../Firebase/Firebase.init";
+import useToken from "../../Hooks/useToken";
 import Loading from "../Shared/Loading/Loading";
 import ForgetPassword from "./ForgetPassword";
 const Login = () => {
@@ -22,15 +23,17 @@ const Login = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword, user2, loading2, error2] =
     useSignInWithEmailAndPassword(auth);
+
+  const [token] = useToken(user || user2);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
-    if (user || user2) {
+    if (token) {
       navigate(from, { replace: true });
     }
-  }, [user, user2]);
+  }, [token, navigate, from]);
 
   if (loading || loading2) {
     return <Loading />;
