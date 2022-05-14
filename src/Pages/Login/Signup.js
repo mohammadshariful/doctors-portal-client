@@ -7,6 +7,7 @@ import {
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../Firebase/Firebase.init";
+import useToken from "../../Hooks/useToken";
 import Loading from "../Shared/Loading/Loading";
 
 const Signup = () => {
@@ -19,14 +20,15 @@ const Signup = () => {
   const [createUserWithEmailAndPassword, user2, loading2, error2] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+  const [token] = useToken(user || user2);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user || user2) {
+    if (token) {
       navigate("/");
     }
-  }, [user || user2]);
+  }, [token, navigate]);
 
   if (loading || loading2 || updating) {
     return <Loading />;
@@ -34,7 +36,6 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.email, data.password);
-    navigate("/appointment");
     await updateProfile({ displayName: data.name });
   };
   return (
