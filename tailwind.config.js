@@ -6,7 +6,7 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        doctorPortal: {
+        light: {
           primary: "#0FCFEC",
 
           secondary: "#19D3AE",
@@ -26,6 +26,7 @@ module.exports = {
           error: "#F87272",
         },
       },
+      "dark",
     ],
   },
   plugins: [require("daisyui")],

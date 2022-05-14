@@ -10,11 +10,15 @@ import Loading from "../Shared/Loading/Loading";
 import ForgetPassword from "./ForgetPassword";
 const Login = () => {
   const [reset, setReset] = useState(false);
+
   const {
     register,
+    watch,
     formState: { errors },
     handleSubmit,
   } = useForm();
+  // const email = watch("email");
+
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword, user2, loading2, error2] =
     useSignInWithEmailAndPassword(auth);
