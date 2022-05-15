@@ -14,6 +14,7 @@ import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Login/Signup";
 import Navbar from "./Pages/Shared/Navbar/Navbar";
+import RequireAdmin from "./Pages/Shared/RequireAdmin/RequireAdmin";
 import RequireAuth from "./Pages/Shared/RequireAuth/RequireAuth";
 function App() {
   useEffect(() => {
@@ -44,7 +45,14 @@ function App() {
           <Route index element={<MyAppointments />} />
           <Route path="review" element={<MyReview />} />
           <Route path="history" element={<MyHistory />} />
-          <Route path="users" element={<Users />} />
+          <Route
+            path="users"
+            element={
+              <RequireAdmin>
+                <Users />
+              </RequireAdmin>
+            }
+          />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
