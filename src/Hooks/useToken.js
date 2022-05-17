@@ -7,7 +7,7 @@ const useToken = (user) => {
     const email = user?.user?.email;
     const currentUser = { email: email };
     if (email) {
-      const url = `https://doctorsprotal2022.herokuapp.com/user/${email}`;
+      const url = `http://localhost:5000/user/${email}`;
       fetch(url, {
         method: "PUT",
         headers: {

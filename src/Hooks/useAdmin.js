@@ -7,7 +7,7 @@ const useAdmin = (user) => {
     const email = user?.email;
     setAdminLoading(true);
     if (email) {
-      const url = `https://doctorsprotal2022.herokuapp.com/user/${email}`;
+      const url = `http://localhost:5000/admin/${email}`;
       fetch(url, {
         method: "GET",
         headers: {

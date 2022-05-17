@@ -5,7 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { themeChange } from "theme-change";
 import About from "./Pages/About/About";
 import Appointment from "./Pages/Appointment/Appointment";
+import AddDoctor from "./Pages/Dashboard/AddDoctor";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import ManageDoctors from "./Pages/Dashboard/ManageDoctors";
 import MyAppointments from "./Pages/Dashboard/MyAppointments";
 import MyHistory from "./Pages/Dashboard/MyHistory";
 import MyReview from "./Pages/Dashboard/MyReview";
@@ -14,7 +16,6 @@ import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Login/Signup";
 import Navbar from "./Pages/Shared/Navbar/Navbar";
-import RequireAdmin from "./Pages/Shared/RequireAdmin/RequireAdmin";
 import RequireAuth from "./Pages/Shared/RequireAuth/RequireAuth";
 function App() {
   useEffect(() => {
@@ -45,14 +46,9 @@ function App() {
           <Route index element={<MyAppointments />} />
           <Route path="review" element={<MyReview />} />
           <Route path="history" element={<MyHistory />} />
-          <Route
-            path="users"
-            element={
-              <RequireAdmin>
-                <Users />
-              </RequireAdmin>
-            }
-          />
+          <Route path="users" element={<Users />} />
+          <Route path="addDoctor" element={<AddDoctor />} />
+          <Route path="manageDoctor" element={<ManageDoctors />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

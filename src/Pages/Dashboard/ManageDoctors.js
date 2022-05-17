@@ -1,43 +1,43 @@
 import React from "react";
 import { useQuery } from "react-query";
 import Loading from "../Shared/Loading/Loading";
-import UserRow from "./UserRow";
-
-const Users = () => {
+import DoctorRow from "./DoctorRow";
+const ManageDoctors = () => {
   const {
-    data: users,
+    data: doctors,
     isLoading,
     refetch,
-  } = useQuery("users", () =>
-    fetch("http://localhost:5000/user", {
-      method: "GET",
+  } = useQuery("doctors", () =>
+    fetch("http://localhost:5000/doctor", {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     }).then((res) => res.json())
   );
-
   if (isLoading) {
     return <Loading />;
   }
   return (
     <div>
-      <h2 className="text-2xl text-center">All Users: ({users.length})</h2>
+      <h2 className="text-2xl text-center">
+        Manage Doctors( {doctors?.length})
+      </h2>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
             <tr>
               <th>List</th>
+              <th>Avatar</th>
               <th>Name</th>
-              <th>Admin</th>
-              <th>Romove Admin</th>
+              <th>Speciality</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {users?.map((user, index) => (
-              <UserRow
-                key={user._id}
-                user={user}
+            {doctors.map((doctor, index) => (
+              <DoctorRow
+                key={doctor._id}
+                doctor={doctor}
                 index={index}
                 refetch={refetch}
               />
@@ -49,4 +49,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default ManageDoctors;
