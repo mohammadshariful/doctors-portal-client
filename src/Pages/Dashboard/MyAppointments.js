@@ -53,7 +53,17 @@ const MyAppointments = () => {
                 <td>{appointment.treatment}</td>
                 <td>
                   {appointment.price && appointment.paid ? (
-                    <span className="text-success">Paid</span>
+                    <div>
+                      <p>
+                        <span className="text-success">Paid</span>
+                      </p>
+                      <p>
+                        Transaction Id:
+                        <span className="text-success">
+                          {appointment.transactionId}
+                        </span>
+                      </p>
+                    </div>
                   ) : (
                     <button
                       onClick={() =>
