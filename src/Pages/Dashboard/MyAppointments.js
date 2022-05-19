@@ -40,6 +40,7 @@ const MyAppointments = () => {
               <th>Date</th>
               <th>Time</th>
               <th>Treatment</th>
+              <th>Payment</th>
             </tr>
           </thead>
           <tbody>
@@ -50,6 +51,20 @@ const MyAppointments = () => {
                 <td>{appointment.date}</td>
                 <td>{appointment.slot}</td>
                 <td>{appointment.treatment}</td>
+                <td>
+                  {appointment.price && appointment.paid ? (
+                    <span className="text-success">Paid</span>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        navigate(`/dashboard/payment/${appointment._id}`)
+                      }
+                      className="btn-success btn btn-sm text-white"
+                    >
+                      Pay
+                    </button>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
