@@ -9,7 +9,7 @@ const MyAppointments = () => {
   const [user] = useAuthState(auth);
   useEffect(() => {
     if (user) {
-      const url = `http://localhost:5000/booking?patient=${user?.email}`;
+      const url = `https://doctorsprotal2022.herokuapp.com/booking?patient=${user?.email}`;
       fetch(url, {
         method: "GET",
         headers: {
